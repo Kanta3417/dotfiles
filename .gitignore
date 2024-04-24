@@ -1,0 +1,13 @@
+# 最初にすべての階層のファイルを無視する
+### all ignore ###
+/*
+/.**
+
+### not ignore ###
+!/.config/
+!/.config/nvim/
+!/.config/nvim/**
+
+!/README.md
+!/install.sh
+!.gitignore
