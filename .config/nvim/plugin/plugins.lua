@@ -36,12 +36,8 @@ vim.cmd[[set helplang=ja,en]]
 ---------------------------------
 -- 括弧を挿入、変更、削除する
 require('mini.surround').setup()
--- よくわからん
--- require('mini.ai').setup()
 -- 複数行のコメントアウト
 require('mini.comment').setup()
--- 文章の整形
--- require('mini.align').setup()
 -- 括弧の自動挿入
 require('mini.pairs').setup()
 
