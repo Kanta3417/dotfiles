@@ -1,49 +1,51 @@
-#!/usr/bin/env bash
-set -ue
+#!/usr/bin/bash
 
+src="$(pwd -P)"
+dest=$HOME
+# バックアップの場所
+backup=$HOME/.dotbackup
 
 helpmsg() {
-  command echo "Usage: $0 [--help | -h]" 0>&2
-  command echo ""
+  echo "Usage: $0 [--help | -h]" 0>&2
+  echo "Usage: $0 [--debug | -d]" 0>&2
 }
 
 link_to_destdir() {
   local _src=$1
   local _dest=$2
   local _backup=$3
-  echo "_src: $_src"
-  echo "_dest: $_dest"
-  echo "_backup: $_backup"
 
   for f in `ls -a $_src`; do
-    local fpath=$_src/$f
+    # 隠しファイル、ディレクトリだけ処理を行う(初回だけ実行)
+    [[ $_dest = $HOME && $f != .* ]] && continue
+    # 親、カレントディレクトリと.gitで始まるファイル、ディレクトリは無視
     [[ $f == "." || $f == ".." || $f == ".git"* ]] && continue
 
-    echo "f: $f,  fpath: $fpath"
-
-    # シンボリックリンクかどうか
+    # 同名のシンボリックリンクがあれば削除する
     if [[ -L "$_dest/$f" ]];then
       echo "rm -f $_dest/$f"
-      command rm -f "$_dest/$f"
+      rm -f "$_dest/$f"
     fi
 
-    # ファイルがあるかどうか
+    # 同名のファイルがあれば$backupに移動して、シンボリックリンクを張る
     if [[ -f "$_dest/$f" ]];then
       echo "mv $_dest/$f $_backup"
-      command mv "$_dest/$f" "$_backup"
-      echo "ln -sf $_src/$f $_dest"
-      command ln -snf $_src/$f $_dest
+      mv "$_dest/$f" "$_backup"
+      echo "ln -snf $_src/$f $_dest"
+      ln -snf $_src/$f $_dest
       continue
     fi
 
+    # 同名のディレクトリがあれば再帰的に処理を行う
     if [[ -d $_dest/$f ]]; then
-      echo "$_dest/$f is directory"
+      # バックアップのためにディレクトリを作成
       echo "mkdir -p $_backup/$f"
-      command mkdir -p $_backup/$f
+      mkdir -p $_backup/$f
+      # ディレクトリの中に入り、同様のことを行う
       link_to_destdir $_src/$f $_dest/$f $_backup/$f
-    else
-      echo "ln -sd $_src/$f $_dest"
-      command ln -snf $_src/$f $_dest
+    else # ディレクトリがなければシンボリックリンクを張る
+      echo "ln -snf $_src/$f $_dest"
+      ln -snf $_src/$f $_dest
     fi
   done
 }
@@ -53,7 +55,7 @@ IS_INSTALL="true"
 while [ $# -gt 0 ];do
   case ${1} in
     --debug|-d)
-      set -uex
+      IS_INSTALL="false"
       ;;
     --help|-h)
       helpmsg
@@ -66,14 +68,16 @@ while [ $# -gt 0 ];do
 done
 
 if [[ "$IS_INSTALL" = true ]];then
-  local src="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-  local dest=$HOME/dest
-  local backup=$HOME/backup
+  echo "backup old dotfiles..."
+  if [ ! -d $backup ];then
+    echo "$backup not found. Auto Make it"
+    mkdir "$backup"
+  fi
   link_to_destdir $src $dest $backup
 
-  command echo ""
-  command echo "#####################################################"
-  command echo -e "\e[1;36m $(basename $0) install success!!! \e[m"
-  command echo "#####################################################"
-  command echo ""
+  echo ""
+  echo "#####################################################"
+  echo -e "\e[1;36m $(basename $0) install success!!! \e[m"
+  echo "#####################################################"
+  echo ""
 fi
