@@ -1,10 +1,15 @@
 # dotfiles
 
 以下の設定ファイルを置いている
+
 - neovim
-予定
+
+(予定)
+
 - .Xmodmap
+
 - .bashrc
+
 - .vimrc
 
 ## Install
@@ -14,7 +19,7 @@
 
 そのため、手動で以下のバックアップを取っておくことをお勧めします。
 
-    - $HOME/.config
+- $HOME/.config
 
 1. Download
 
