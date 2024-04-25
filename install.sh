@@ -1,9 +1,11 @@
 #!/usr/bin/env bash
 set -ue
 
-src="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
-dest=$HOME/dest
-backup=$HOME/backup
+
+helpmsg() {
+  command echo "Usage: $0 [--help | -h]" 0>&2
+  command echo ""
+}
 
 link_to_destdir() {
   local _src=$1
@@ -46,4 +48,32 @@ link_to_destdir() {
   done
 }
 
-link_to_destdir $src $dest $backup
+IS_INSTALL="true"
+
+while [ $# -gt 0 ];do
+  case ${1} in
+    --debug|-d)
+      set -uex
+      ;;
+    --help|-h)
+      helpmsg
+      exit 1
+      ;;
+    *)
+      ;;
+  esac
+  shift
+done
+
+if [[ "$IS_INSTALL" = true ]];then
+  local src="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd -P)"
+  local dest=$HOME/dest
+  local backup=$HOME/backup
+  link_to_destdir $src $dest $backup
+
+  command echo ""
+  command echo "#####################################################"
+  command echo -e "\e[1;36m $(basename $0) install success!!! \e[m"
+  command echo "#####################################################"
+  command echo ""
+fi
