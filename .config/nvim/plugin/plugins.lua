@@ -42,6 +42,11 @@ require('mini.comment').setup()
 require('mini.pairs').setup()
 
 ---------------------------------
+-- Fern
+---------------------------------
+vim.api.nvim_set_var('fern#drawer_width', 25)
+
+---------------------------------
 -- colorscheme
 ---------------------------------
 vim.cmd

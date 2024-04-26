@@ -26,15 +26,12 @@ link_to_destdir() {
 
     # 同名のシンボリックリンクがあれば削除する
     if [[ -L "$_dest/$f" ]];then
-      echo "rm -f $_dest/$f"
       rm -f "$_dest/$f"
     fi
 
     # 同名のファイルがあれば$backupに移動して、シンボリックリンクを張る
     if [[ -f "$_dest/$f" ]];then
-      echo "mv $_dest/$f $_backup"
       mv "$_dest/$f" "$_backup"
-      echo "ln -snf $_src/$f $_dest"
       ln -snf $_src/$f $_dest
       continue
     fi
@@ -42,12 +39,10 @@ link_to_destdir() {
     # 同名のディレクトリがあれば再帰的に処理を行う
     if [[ -d $_dest/$f ]]; then
       # バックアップのためにディレクトリを作成
-      echo "mkdir -p $_backup/$f"
       mkdir -p $_backup/$f
       # ディレクトリの中に入り、同様のことを行う
       link_to_destdir $_src/$f $_dest/$f $_backup/$f
     else # ディレクトリがなければシンボリックリンクを張る
-      echo "ln -snf $_src/$f $_dest"
       ln -snf $_src/$f $_dest
     fi
   done
