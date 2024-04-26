@@ -4,6 +4,8 @@
 /.**
 
 ### not ignore ###
+!/install_script/
+!/install_script/**
 !/.config/
 !/.config/nvim/
 !/.config/nvim/**

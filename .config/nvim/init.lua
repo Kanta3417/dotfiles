@@ -62,6 +62,8 @@ set.swapfile=false
 vim.cmd[[set clipboard=unnamedplus]]
 -- バッファ移動時に保存されていないことの確認をしない
 set.hidden=true
+-- ファイルの変更を自動的に反映
+set.autoread=true
 
 ---------------------------------
 -- 独自キーマップ
@@ -136,6 +138,6 @@ user_command(
 ---------------------------------
 -- ctags
 ---------------------------------
--- .tagsファイルをホームディレクトリまで遡って探す
--- vim.cmd[[set tags=.tags;~]]
+.tagsファイルをホームディレクトリまで遡って探す
+vim.cmd[[set tags=.tags;~]]
 
