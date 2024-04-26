@@ -1,5 +1,8 @@
 #!/usr/bin/bash
 
+# -u: パラメータ展開中に設定していない変数があったらエラーとする
+# -e: 実行したコマンドが1つでもエラーになったら直ちにシェルを終了
+
 src="$(pwd -P)"
 dest=$HOME
 # バックアップの場所
@@ -55,7 +58,8 @@ IS_INSTALL="true"
 while [ $# -gt 0 ];do
   case ${1} in
     --debug|-d)
-      IS_INSTALL="false"
+      # -x: シェルが実行したコマンドと引数を出力
+      set -uex
       ;;
     --help|-h)
       helpmsg
