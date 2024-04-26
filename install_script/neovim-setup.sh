@@ -10,10 +10,6 @@ if [[ ! -d $dest ]]; then
   mkdir -p $dest
 fi
 
-# curlのインストール
-sudo apt update
-sudo apt install -y curl
-
 # Neovimの実行ファイルをダウンロード
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
 tar -C $dest -xzf nvim-linux64.tar.gz
