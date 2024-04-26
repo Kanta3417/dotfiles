@@ -38,10 +38,6 @@
 
 最新のNeovimのインストールと設定ファイルの配置を行います。
 
-オプションに--debug[-d]を付けることで、実行されるコマンドを表示します。
-
-    ```bash
-    curl -fsSL https://github.com/Kanta3417/dotfiles/raw/main/install_script/neovim-setup.sh | bash
-    # or
-    curl -fsSL https://github.com/Kanta3417/dotfiles/raw/main/install_script/neovim-setup.sh --debug | bash
-    ```
+~~~bash
+curl -fsSL https://github.com/Kanta3417/dotfiles/raw/main/install_script/neovim-setup.sh | bash
+~~~
