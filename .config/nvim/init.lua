@@ -91,14 +91,11 @@ keymap('n', '<S-Tab>', 'gT')
 ---------------------------------
 -- Leader Keyをスペースに設定
 var('mapleader', ' ')
--- タブ移動用
-keymap('n', '<Leader>j', 'gT', { silent=true })
-keymap('n', '<Leader>k', 'gt', { silent=true })
 -- 入力が面倒なやつら
 keymap('n', '<Leader> ', '<C-w>', {})
 keymap('n', '<Leader>t', ':tabedit ')
-keymap('n', '<Leader>q', ':bw!<CR>', { silent=true })
-keymap('n', '<Leader>v', ':Fern . -drawer -stay<CR>', { silent=true })
+-- keymap('n', '<Leader>q', ':bw!<CR>', { silent=true })
+keymap('n', '<Leader>e', ':Fern . -drawer -stay<CR>', { silent=true })
 -- カーソル下のファイルオープン
 keymap('n', '<Leader>f', '<C-w>vgf')
 
@@ -113,58 +110,32 @@ autocmd('TermOpen', {command='setlocal nonumber'})
 autocmd('TermOpen', {command='setlocal nobuflisted'})
 -- ターミナルで;;で挿入モードからノーマルモードに移行
 keymap('t', ';;', '<C-\\><C-n>')
--- Sterminalで下にターミナルを作成
-user_command('Sterminal', 'new | resize 15 | terminal', {})
--- Vterminalで右にターミナルを作成 
-user_command('Vterminal', 'vnew | terminal', {})
--- Tterminalで右にターミナルを作成 
-user_command('Tterminal', 'tabnew | terminal', {})
+-- Terminalでターミナルを作成(引数によって変化、tabで候補補完)
+-- なし, その他: 水平分割(下)
+-- 頭文字がv: 垂直分割(右)
+-- 頭文字がt: 新しいタブ
+user_command(
+  'Terminal',
+  function(opts)
+    if string.sub(opts.args, 0, 1) == 'v' then
+      vim.cmd([[vnew | terminal]])
+    elseif string.sub(opts.args, 0, 1) == 't' then
+      vim.cmd([[tabnew | terminal]])
+    else
+      vim.cmd([[new | resize 15 | terminal]])
+    end
+  end,
+  {
+    nargs = '?',
+    complete = function()
+      return {'vsplit', 'tab'}
+    end
+  }
+)
 
 ---------------------------------
 -- ctags
 ---------------------------------
 -- .tagsファイルをホームディレクトリまで遡って探す
-vim.cmd[[set tags=.tags;~]]
-
----------------------------------
--- netrw
----------------------------------
--- バナーを表示にしない
-var('netrw_banner', 0)
--- ファイルを開くときに新しいタブで開く
-var('netrw_browse_split', 3)
--- ファイル一覧表示スタイル 3:ツリー表示
-var('netrw_liststyle', 3)
--- 開いたファイルのカレントディレクトリを変更
-var('netrw_keepdir', 0)
--- ファイルサイズを(K,M,G)で表示する
-var('netrw_sizestyle', "H")
--- プレビューウィンドウを垂直分割で表示する
-var('netrw_preview', 1)
--- 特定の種類のファイルが特別な色で表示
-var('netrw_special_syntax', true)
--- 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
-var('netrw_timefmt', "%Y/%m/%d(%a) %H:%M:%S")
--- ウィンドウを作成したときの初期サイズ
-var('netrw_winsize', 15)
--- netrw固有のキーマップ
-vim.cmd[[
-" <C-l>で左のウィンドウに移動
-function! NetrwMapping_Cl(islocal) abort
-  return "normal! \<C-w>l"
-endfunction
-" hで親ディレクトリに移動
-function! NetrwMapping_h(islocal) abort
-  return "normal -"
-endfunction
-" lでディレクトリを展開
-function! NetrwMapping_l(islocal) abort
-  return "normal x"
-endfunction
-]]
-vim.g.Netrw_UserMaps = {
-  {'<C-l>', 'NetrwMapping_Cl'},
-  {'h', 'NetrwMapping_h'},
-  {'l', 'NetrwMapping_l'},
-}
+-- vim.cmd[[set tags=.tags;~]]
 
