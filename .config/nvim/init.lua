@@ -96,6 +96,9 @@ var('mapleader', ' ')
 -- 入力が面倒なやつら
 keymap('n', '<Leader> ', '<C-w>', {})
 keymap('n', '<Leader>t', ':tabedit ')
+keymap('n', '<Leader>c', 'zf%')
+keymap('n', '<Leader><', '<C-w>20<')
+keymap('n', '<Leader>>', '<C-w>20>')
 -- keymap('n', '<Leader>q', ':bw!<CR>', { silent=true })
 keymap('n', '<Leader>e', ':Fern . -drawer -stay<CR>', { silent=true })
 -- カーソル下のファイルオープン
@@ -117,7 +120,7 @@ keymap('t', ';;', '<C-\\><C-n>')
 -- 頭文字がv: 垂直分割(右)
 -- 頭文字がt: 新しいタブ
 user_command(
-  'Terminal',
+  'T',
   function(opts)
     if string.sub(opts.args, 0, 1) == 'v' then
       vim.cmd([[vnew | terminal]])
@@ -139,5 +142,43 @@ user_command(
 -- ctags
 ---------------------------------
 -- .tagsファイルをホームディレクトリまで遡って探す
--- vim.cmd[[set tags=.tags;~]]
+-- ctags -R -f .tags
+vim.cmd[[set tags=.tags;~]]
+
+---------------------------------
+-- netrw
+---------------------------------
+-- バナーを表示しない
+var('netrw_banner', 0)
+-- ファイルを<cr>を押して開くときに垂直分割で開く
+var('netrw_browse_split', 1)
+-- ファイル一覧表示スタイル 3:ツリー表示
+var('netrw_liststyle', 3)
+-- プレビューウィンドウを垂直分割で表示する
+var('netrw_preview', 1)
+-- 分割ウィンドウを下に開く
+var('netrw_alto', 1)
+-- 分割ウィンドウを右に開く
+var('netrw_altv', 1)
+-- ファイルサイズを(K,M,G)で表示する
+var('netrw_sizestyle', "H")
+-- 日付フォーマットを yyyy/mm/dd(曜日) hh:mm:ss で表示する
+var('netrw_timefmt', "%Y/%m/%d(%a) %H:%M:%S")
+-- ウィンドウを作成したときの初期サイズ 18%
+var('netrw_winsize', 18)
+-- 特定の種類のファイルを特別な色で表示
+var('netrw_special_syntax', true)
+-- <C-l>でウィンドウ移動を可能にする
+vim.cmd[[
+function! NetrwMapping_Cl(islocal) abort
+	return "normal! \<C-w>l"
+endfunction
+function! NetrwMapping_x(islocal) abort
+	return "normal! \<C-l>"
+endfunction
+let g:Netrw_UserMaps = [
+\   ['<C-l>', 'NetrwMapping_Cl'],
+\   ['x', 'NetrwMapping_x'],
+\ ]
+]]
 
