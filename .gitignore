@@ -9,6 +9,10 @@
 !/.config/
 !/.config/nvim/
 !/.config/nvim/**
+!/.config/fish/
+!/.config/fish/**
+!/.config/tmux/
+!/.config/tmux/**
 
 !/README.md
 !/install.sh
