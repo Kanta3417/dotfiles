@@ -6,7 +6,7 @@
 src="$(pwd -P)"
 dest=$HOME
 # バックアップの場所
-backup=$HOME/.dotbackup
+backup=$src/dotbackup
 
 helpmsg() {
   echo "Usage: $0 [--help | -h]" 0>&2

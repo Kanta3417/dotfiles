@@ -10,7 +10,7 @@ set -g fish_prompt_pwd_dir_length 0 # 0:フルパス, 1~:1~文字表示
 # set -g theme_project_dir_length 0 # プロジェクトルートからの相対パス
 set -g theme_show_project_parent no # プロジェクトのディレクトリ名だけを表示
 set -g theme_newline_cursor yes #　コマンド行を次の行で開始(clean:先頭のマークなし)
-set -g theme_newline_prompt "♪ " # ♪ 🦏 ☃  🦕 
+set -g theme_newline_prompt "\e[37m♪\e[m " # ♪ 🦏 ☃  🦕  
 set -g theme_powerline_fonts no
 set -g theme_nerd_fonts yes
 set -g theme_color_scheme dracula
@@ -31,6 +31,9 @@ set -g theme_title_display_process yes # プロセス名を表示
 # set -g theme_title_display_path no
 # set -g theme_title_display_user yes
 # set -g theme_title_use_abbreviated_path no
+
+# コマンド部分の文字色を変更
+set -g fish_color_command 19fcf9
 
 if status is-interactive
   # Commands to run in interactive sessions can go here

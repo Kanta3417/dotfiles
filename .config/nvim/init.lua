@@ -169,16 +169,16 @@ var('netrw_winsize', 18)
 -- 特定の種類のファイルを特別な色で表示
 var('netrw_special_syntax', true)
 -- <C-l>でウィンドウ移動を可能にする
-vim.cmd[[
-function! NetrwMapping_Cl(islocal) abort
-	return "normal! \<C-w>l"
-endfunction
-function! NetrwMapping_x(islocal) abort
-	return "normal! \<C-l>"
-endfunction
-let g:Netrw_UserMaps = [
-\   ['<C-l>', 'NetrwMapping_Cl'],
-\   ['x', 'NetrwMapping_x'],
-\ ]
-]]
+-- vim.cmd[[
+-- function! NetrwMapping_Cl(islocal) abort
+-- 	return "normal! \<C-w>l"
+-- endfunction
+-- function! NetrwMapping_x(islocal) abort
+-- 	return "normal! \<C-l>"
+-- endfunction
+-- let g:Netrw_UserMaps = [
+-- \   ['<C-l>', 'NetrwMapping_Cl'],
+-- \   ['x', 'NetrwMapping_x'],
+-- \ ]
+-- ]]
 
