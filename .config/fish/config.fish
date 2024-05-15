@@ -2,7 +2,7 @@
 set -g theme_display_vi yes # viのモードを表示する(ノーマル:N ビジュアル:V)
 # set -g theme_show_exit_status yes # コマンドエラー時の番号を表示
 set -g theme_display_jobs_verbose yes # バックグラウンド実行の数を表示
-set -g theme_display_user ssh # ssh接続の時にのみユーザ名表示(yes, ssh, no)
+set -g theme_display_user yes # ssh接続の時にのみユーザ名表示(yes, ssh, no)
 # set -g default_user kanta # 設定した名前以外ならユーザ名表示
 set -g theme_display_sudo_user yes # sudoのユーザ名を表示?
 set -g theme_display_hostname no # hostnameを非表示(yes, ssh, no)

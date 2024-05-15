@@ -97,12 +97,19 @@ var('mapleader', ' ')
 keymap('n', '<Leader> ', '<C-w>', {})
 keymap('n', '<Leader>t', ':tabedit ')
 keymap('n', '<Leader>c', 'zf%')
-keymap('n', '<Leader><', '<C-w>20<')
-keymap('n', '<Leader>>', '<C-w>20>')
+keymap('n', '<Leader><', '<C-w>10<')
+keymap('n', '<Leader>>', '<C-w>10>')
 -- keymap('n', '<Leader>q', ':bw!<CR>', { silent=true })
-keymap('n', '<Leader>e', ':Fern . -drawer -stay<CR>', { silent=true })
+keymap('n', '<Leader>e', ':Fern . -drawer -stay<CR>')
 -- カーソル下のファイルオープン
 keymap('n', '<Leader>f', '<C-w>vgf')
+
+---------------------------------
+-- filetype
+---------------------------------
+vim.cmd[[
+au BufRead,BufNewFile Makefile.inc    set filetype=make
+]]
 
 ---------------------------------
 -- ターミナル
