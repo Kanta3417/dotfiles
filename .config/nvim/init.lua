@@ -107,9 +107,19 @@ keymap('n', '<Leader>f', '<C-w>vgf')
 ---------------------------------
 -- filetype
 ---------------------------------
-vim.cmd[[
-au BufRead,BufNewFile Makefile.inc    set filetype=make
-]]
+-- vim.cmd[[
+-- au BufRead,BufNewFile Makefile.inc    set filetype=make setlocal noexpandtab
+-- ]]
+autocmd({'BufRead', 'BufNewFile'}, {
+  pattern = {'Makefile.inc', 'Makefile'},
+  callback = function()
+    vim.cmd[[
+      set filetype=make
+      setlocal list
+      setlocal noexpandtab
+    ]]
+  end
+})
 
 ---------------------------------
 -- ターミナル
