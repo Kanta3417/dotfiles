@@ -53,10 +53,6 @@ echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $bashrc
 ln -s $dest/bin/nvim $HOME/.local/bin
 source $bashrc
 
-# %による括弧ジャンプが使えるように変更
-echo -e "\e[1;35m Modify $nvim_plugin_path \e[m"
-sed -i 's/!exists("g:loaded_matchit") && //' $nvim_plugin_path
-
 # 設定ファイルのインストール
 echo -e "\e[1;35m Install dotfiles \e[m"
 git clone https://github.com/Kanta3417/dotfiles.git

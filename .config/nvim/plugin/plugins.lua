@@ -19,6 +19,8 @@ require("lazy").setup({
 	"vim-jp/vimdoc-ja",
 	-- 細々とした機能
 	"echasnovski/mini.nvim",
+  -- 括弧の自動挿入
+  "jiangmiao/auto-pairs",
 	-- ファイラー
 	"lambdalisue/fern.vim",
   -- colorscheme
@@ -43,7 +45,7 @@ require('mini.surround').setup()
 -- 複数行のコメントアウト
 require('mini.comment').setup()
 -- 括弧の自動挿入
-require('mini.pairs').setup()
+-- require('mini.pairs').setup()
 
 ---------------------------------
 -- Fern
