@@ -8,7 +8,7 @@ dest=$HOME/.local
 bashrc=$HOME/.bashrc
 nvim_name=nvim-linux64
 nvim_tarball=$nvim_name.tar.gz
-nvim_plugin_path=$dest/nvim-linux64/share/nvim/runtime/plugin/matchit.vim
+local_bin=$HOME/.local/bin
 debug="false"
 
 helpmsg() {
@@ -40,6 +40,12 @@ if [[ ! -d $dest ]]; then
   mkdir -p $dest
 fi
 
+# ~/.local/binがあるか確認
+if [[ ! -d $local_bin ]]; then
+  echo -e "\e[1;35m $local_bin not found... Auto make.\e[m"
+  mkdir -m 700 -p $local_bin
+fi
+
 # Neovimの実行ファイルをダウンロード
 echo -e "\e[1;35m Download Neovim \e[m"
 curl -LO https://github.com/neovim/neovim/releases/latest/download/nvim-linux64.tar.gz
@@ -50,18 +56,8 @@ rm -f $nvim_tarball
 echo -e "\e[1;35m Create path \e[m"
 echo -e "\n# Add ~/.local/bin to \$PATH" >> $bashrc
 echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $bashrc
-ln -s $dest/bin/nvim $HOME/.local/bin
+ln -s $dest/bin/nvim $local_bin
 source $bashrc
-
-# 設定ファイルのインストール
-echo -e "\e[1;35m Install dotfiles \e[m"
-git clone https://github.com/Kanta3417/dotfiles.git
-cd dotfiles
-if [[ $debug = "true" ]]; then
-  bash install.sh --debug
-else
-  bash install.sh
-fi
 
 echo ""
 echo "#####################################################"

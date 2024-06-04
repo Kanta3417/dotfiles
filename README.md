@@ -39,5 +39,5 @@ install.shで設定ファイルのシンボリックリンクを張る際に、�
 最新のNeovimのインストールと設定ファイルの配置を行います。
 
 ~~~bash
-curl -fsSL https://github.com/Kanta3417/dotfiles/raw/main/install_script/neovim-setup.sh | bash
+curl -fsSL https://github.com/Kanta3417/dotfiles/raw/main/scripts/neovim-setup.sh | bash
 ~~~

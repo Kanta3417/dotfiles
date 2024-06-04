@@ -104,6 +104,7 @@ require('gitsigns').setup {
 ---------------------------------
 vim.cmd
 [[
+set notermguicolors
 set background=dark
 colorscheme PaperColor 
 ]]

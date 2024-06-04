@@ -59,11 +59,13 @@ set.hlsearch=true
 -- スワップファイルを作成しない
 set.swapfile=false
 -- レジスタの内容をOSのクリップボードに貼り付け
-vim.cmd[[set clipboard=unnamedplus]]
+vim.cmd[[set clipboard+=unnamedplus]]
 -- バッファ移動時に保存されていないことの確認をしない
 set.hidden=true
 -- ファイルの変更を自動的に反映
 set.autoread=true
+-- F1でヘルプを開かないようにする(tmuxのため)
+keymap('n', '<F1>', '')
 
 ---------------------------------
 -- 独自キーマップ
