@@ -57,7 +57,7 @@ rm -f $nvim_tarball
 echo -e "\e[1;35m Create path \e[m"
 echo -e "\n# Add ~/.local/bin to \$PATH" >> $bashrc
 echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $bashrc
-ln -s $dest/bin/nvim $local_bin
+ln -s $dest/$nvim_name/bin/nvim $local_bin
 source $bashrc
 
 # プラグインが必要ない設定ファイルを配置
