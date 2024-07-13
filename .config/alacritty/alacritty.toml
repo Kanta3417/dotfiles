@@ -1,0 +1,51 @@
+[shell]
+program = "/usr/bin/fish"
+
+[window]
+padding = { x = 3, y = 0 }
+decorations = "Full"
+# opacity = 0.95
+startup_mode = "Maximized"
+
+[scrolling]
+history = 50000
+
+[font]
+normal = { family = "RobotoMono Nerd Font", style = "Regular" }
+size = 15
+
+# Colours (Monokai Charcoal)
+# Colors (Snazzy)
+# thelovelace
+# Colors (Dracula)
+[colors.primary]
+background = '#282a36'
+foreground = '#f8f8f2'
+[colors.normal]
+black   = '#000000'
+red     = '#ff5555'
+green   = '#50fa7b'
+yellow  = '#f1fa8c'
+blue    = '#bd93f9'
+magenta = '#ff79c6'
+cyan    = '#8be9fd'
+white   = '#bbbbbb'
+[colors.bright]
+black   = '#555555'
+red     = '#ff5555'
+green   = '#50fa7b'
+yellow  = '#f1fa8c'
+blue    = '#caa9fa'
+magenta = '#ff79c6'
+cyan    = '#8be9fd'
+white   = '#ffffff'
+
+[terminal]
+osc52 = "CopyPaste"
+
+[mouse]
+hide_when_typing = true
+
+[keyboard]
+bindings = [
+]

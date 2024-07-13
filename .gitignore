@@ -13,7 +13,10 @@
 !/.config/fish/**
 !/.config/tmux/
 !/.config/tmux/**
+!/.config/alacritty/
+!/.config/alacritty/**
 
 !/README.md
 !/install.sh
+!/noplugin.lua
 !.gitignore
