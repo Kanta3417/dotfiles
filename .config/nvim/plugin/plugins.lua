@@ -16,19 +16,25 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   -- helpの日本語化
-	"vim-jp/vimdoc-ja",
-	-- 細々とした機能
-	"echasnovski/mini.nvim",
+  "vim-jp/vimdoc-ja",
+  -- 細々とした機能
+  "echasnovski/mini.nvim",
   -- 括弧の自動挿入
   "jiangmiao/auto-pairs",
-	-- ファイラー
-	"lambdalisue/fern.vim",
+  -- ファイラー
+  "lambdalisue/fern.vim",
   -- colorscheme
   "NLKNguyen/papercolor-theme",
   -- git
   "lewis6991/gitsigns.nvim",
   -- git diff
   "sindrets/diffview.nvim",
+  -- コメントアウト
+  "numToStr/Comment.nvim",
+  opts = {
+    -- add any options here
+  },
+  lazy = false,
 })
 
 ---------------------------------
@@ -42,10 +48,6 @@ vim.cmd[[set helplang=ja,en]]
 ---------------------------------
 -- 括弧を挿入、変更、削除する
 require('mini.surround').setup()
--- 複数行のコメントアウト
-require('mini.comment').setup()
--- 括弧の自動挿入
--- require('mini.pairs').setup()
 
 ---------------------------------
 -- Fern
@@ -96,6 +98,55 @@ require('gitsigns').setup {
     relative = 'cursor',
     row = 0,
     col = 1
+  },
+}
+
+---------------------------------
+-- Comment
+---------------------------------
+require('Comment').setup {
+  {
+    ---Add a space b/w comment and the line
+    padding = true,
+    ---Whether the cursor should stay at its position
+    sticky = true,
+    ---Lines to be ignored while (un)comment
+    ignore = nil,
+    ---LHS of toggle mappings in NORMAL mode
+    toggler = {
+      ---Line-comment toggle keymap
+      line = 'gcc',
+      ---Block-comment toggle keymap
+      block = 'gbc',
+    },
+    ---LHS of operator-pending mappings in NORMAL and VISUAL mode
+    opleader = {
+      ---Line-comment keymap
+      line = 'gc',
+      ---Block-comment keymap
+      block = 'gb',
+    },
+    ---LHS of extra mappings
+    extra = {
+      ---Add comment on the line above
+      above = 'gcO',
+      ---Add comment on the line below
+      below = 'gco',
+      ---Add comment at the end of line
+      eol = 'gcA',
+    },
+    ---Enable keybindings
+    ---NOTE: If given `false` then the plugin won't create any mappings
+    mappings = {
+      ---Operator-pending mapping; `gcc` `gbc` `gc[count]{motion}` `gb[count]{motion}`
+      basic = true,
+      ---Extra mapping; `gco`, `gcO`, `gcA`
+      extra = true,
+    },
+    ---Function to call before (un)comment
+    pre_hook = nil,
+    ---Function to call after (un)comment
+    post_hook = nil,
   },
 }
 

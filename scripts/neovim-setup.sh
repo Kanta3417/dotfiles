@@ -5,10 +5,11 @@
 set -ue
 
 dest=$HOME/.local
+local_bin=$dest/bin
 bashrc=$HOME/.bashrc
+nvimconfig=$HOME/.config/nvim
 nvim_name=nvim-linux64
 nvim_tarball=$nvim_name.tar.gz
-local_bin=$HOME/.local/bin
 debug="false"
 
 helpmsg() {
@@ -34,16 +35,16 @@ while [ $# -gt 0 ];do
   shift
 done
 
-# $destがあるか確認
-if [[ ! -d $dest ]]; then
-  echo -e "\e[1;35m $dest not found... Auto make.\e[m"
-  mkdir -p $dest
-fi
-
 # ~/.local/binがあるか確認
 if [[ ! -d $local_bin ]]; then
   echo -e "\e[1;35m $local_bin not found... Auto make.\e[m"
   mkdir -m 700 -p $local_bin
+fi
+
+# ~/.config/nvimがあるか確認
+if [[ ! -d $nvimconfig ]]; then
+  echo -e "\e[1;35m $nvimconfig not found... Auto make.\e[m"
+  mkdir -m 700 -p $nvimconfig
 fi
 
 # Neovimの実行ファイルをダウンロード
@@ -58,6 +59,12 @@ echo -e "\n# Add ~/.local/bin to \$PATH" >> $bashrc
 echo "export PATH=\"\$HOME/.local/bin:\$PATH\"" >> $bashrc
 ln -s $dest/bin/nvim $local_bin
 source $bashrc
+
+# プラグインが必要ない設定ファイルを配置
+echo -e "\e[1;35m Create Neovim config file(init.lua) \e[m"
+curl -fsSL https://github.com/Kanta3417/dotfiles/raw/main/noplugin.lua -o init.lua
+mv init.lua $nvimconfig
+
 
 echo ""
 echo "#####################################################"

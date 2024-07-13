@@ -40,10 +40,12 @@ link_to_destdir() {
     if [[ -d $_dest/$f ]]; then
       # バックアップのためにディレクトリを作成
       mkdir -p $_backup/$f
-      # ディレクトリの中に入り、同様のことを行う
+      # ディレクトリの中に入り、再帰的に処理
       link_to_destdir $_src/$f $_dest/$f $_backup/$f
-    else # ディレクトリがなければシンボリックリンクを張る
-      ln -snf $_src/$f $_dest
+    else # ディレクトリがなければディレクトリを作成し、再帰的に処理
+      # ln -snf $_src/$f $_dest
+      mkdir -p $_dest/$f
+      link_to_destdir $_src/$f $_dest/$f $_backup/$f
     fi
   done
 }
