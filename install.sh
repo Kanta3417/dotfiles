@@ -34,6 +34,11 @@ link_to_destdir() {
       mv "$_dest/$f" "$_backup"
       ln -snf $_src/$f $_dest
       continue
+    else
+      if [[ -f "$_src/$f" ]];then
+        ln -snf $_src/$f $_dest
+        continue
+      fi
     fi
 
     # 同名のディレクトリがあれば再帰的に処理を行う
@@ -43,7 +48,6 @@ link_to_destdir() {
       # ディレクトリの中に入り、再帰的に処理
       link_to_destdir $_src/$f $_dest/$f $_backup/$f
     else # ディレクトリがなければディレクトリを作成し、再帰的に処理
-      # ln -snf $_src/$f $_dest
       mkdir -p $_dest/$f
       link_to_destdir $_src/$f $_dest/$f $_backup/$f
     fi
