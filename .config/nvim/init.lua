@@ -12,7 +12,7 @@ set.number=true
 -- コマンドラインの幅を変更
 set.cmdheight=2
 -- カーソルの上と下に最低でも指定行数表示される
-set.scrolloff=3
+-- set.scrolloff=3
 -- カーソルのある行を強調
 set.cursorline=true
 -- カーソルのある列を強調
@@ -80,7 +80,7 @@ keymap('n', '<C-l>', '<C-w>l')
 -- Escキー2回でハイライトをoffにする
 keymap('n', '<Esc><Esc>', ':nohlsearch<CR><ESC>', { silent = true})
 -- *の文字検索でカーソル位置の単語から移動しない
-keymap('n', '*', '*N')
+keymap('n', '*', '*Nzz')
 -- 候補の結果をフィルタするため
 keymap('c', '<C-p>', '<Up>')
 keymap('c', '<C-n>', '<Down>')
@@ -89,6 +89,20 @@ keymap('c', ';;', 'getcmdtype() == ":" ? expand("%:h")."/" : ";;"', { expr = tru
 -- タブ移動
 keymap('n', '<Tab>', 'gt')
 keymap('n', '<S-Tab>', 'gT')
+-- UをRedoに変更
+keymap('n', 'U', '<C-r>')
+-- Mを括弧ジャンプに変更
+keymap({'n', 'v'}, 'M', '%')
+-- ビジュアルモード開始位置を記録
+keymap('n', 'mxv', 'v')
+keymap('n', 'mxV', 'V')
+keymap('n', 'mx<C-v>', '<C-v>')
+-- コピー時にカーソル位置を保存
+vim.cmd[[xnoremap y mzy`z]]
+-- 直前、直後の空行に飛ぶ
+keymap('n', 'F<CR>', '{')
+keymap('n', 'f<CR>', '}')
+
 
 ---------------------------------
 -- Leader key
@@ -97,6 +111,7 @@ keymap('n', '<S-Tab>', 'gT')
 var('mapleader', ' ')
 -- 入力が面倒なやつら
 keymap('n', '<Leader> ', '<C-w>', {})
+keymap('n', '<Leader>v', "`x", {})
 keymap('n', '<Leader>t', ':tabedit ')
 keymap('n', '<Leader>c', 'zf%')
 keymap('n', '<Leader><', '<C-w>10<')
@@ -122,6 +137,26 @@ autocmd({'BufRead', 'BufNewFile'}, {
     ]]
   end
 })
+
+--------------------------------------------
+-- ファイル保存時に自動で行末の空白削除
+--------------------------------------------
+-- autocmd({'BufWritePre'}, {
+--   callback = function()
+--     local pos = vim.fn.getpos(".")
+--     vim.cmd[[%s/\s*$]]
+--     vim.fn.setpos('.', pos)
+--   end
+-- })
+user_command('Clear',
+  function(opts)
+    local pos = vim.fn.getpos(".")
+    vim.cmd([[%s/\s*$]])
+    vim.cmd([[nohlsearch]])
+    vim.fn.setpos('.', pos)
+  end,
+  {}
+)
 
 ---------------------------------
 -- ターミナル

@@ -52,3 +52,4 @@ set -x PATH $HOME/.local/bin $PATH
 alias ll "eza -l -g --icons"
 alias lla "ll -a"
 alias gl "git log --oneline -n 5"
+alias bpflog "sudo bpftool prog tracelog"

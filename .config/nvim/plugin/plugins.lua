@@ -15,6 +15,7 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
+  -- "nvim-treesitter/nvim-treesitter",
   -- helpの日本語化
   "vim-jp/vimdoc-ja",
   -- 細々とした機能
@@ -35,7 +36,69 @@ require("lazy").setup({
     -- add any options here
   },
   lazy = false,
+  -- インデントの見た目
+  "lukas-reineke/indent-blankline.nvim",
+  main = "ibl",
+  ---@module "ibl"
+  ---@type ibl.config
+  opts = {},
 })
+
+---------------------------------
+-- indent-blankline
+---------------------------------
+local highlightlist = {
+  "RainbowRed",
+  "RainbowYellow",
+  "RainbowBlue",
+  "RainbowOrange",
+  "RainbowGreen",
+  "RainbowViolet",
+  "RainbowCyan",
+}
+
+local hooks = require "ibl.hooks"
+-- create the highlight groups in the highlight setup hook, so they are reset
+-- every time the colorscheme changes
+hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
+    vim.api.nvim_set_hl(0, "RainbowRed", { fg = "#E06C75" })
+    vim.api.nvim_set_hl(0, "RainbowYellow", { fg = "#E5C07B" })
+    vim.api.nvim_set_hl(0, "RainbowBlue", { fg = "#61AFEF" })
+    vim.api.nvim_set_hl(0, "RainbowOrange", { fg = "#D19A66" })
+    vim.api.nvim_set_hl(0, "RainbowGreen", { fg = "#98C379" })
+    vim.api.nvim_set_hl(0, "RainbowViolet", { fg = "#C678DD" })
+    vim.api.nvim_set_hl(0, "RainbowCyan", { fg = "#56B6C2" })
+end)
+
+require("ibl").setup {
+  -- indent = {
+  --   highlight = highlight,
+  -- },
+  -- scope = {
+  --
+  -- }
+  debounce = 100,
+  indent = {
+    -- char = "|",
+    -- tab_char = { "a", "b", "c" },
+    -- highlight = { "Function", "Label" },
+    -- highlight = highlightlist,
+    smart_indent_cap = true,
+    priority = 1,
+    -- repeat_linebreak = false,
+  },
+  whitespace = { highlight = { "Whitespace", "NonText" } },
+  -- scope = { exclude = { language = { "lua" } } },
+  scope = {
+    enabled = true,
+    show_start = true,
+    show_end = true,
+    injected_languages = false,
+    highlight = { "Function", "Label" },
+    priority = 500,
+  }
+}
+
 
 ---------------------------------
 -- vimdoc-ja
@@ -84,9 +147,6 @@ require('gitsigns').setup {
     virt_text_priority = 100,
   },
   current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
-  current_line_blame_formatter_opts = {
-    relative_time = false,
-  },
   sign_priority = 6,
   update_debounce = 100,
   status_formatter = nil, -- Use default
