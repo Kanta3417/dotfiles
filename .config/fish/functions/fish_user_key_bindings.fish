@@ -1,6 +1,4 @@
 function fish_user_key_bindings
-  fzf --fish | source
-
   for mode in default insert visual
     fish_default_key_bindings -M $mode
   end
