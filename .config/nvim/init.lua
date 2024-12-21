@@ -116,6 +116,8 @@ keymap('n', '<Leader>t', ':tabedit ')
 keymap('n', '<Leader>c', 'zf%')
 keymap('n', '<Leader><', '<C-w>10<')
 keymap('n', '<Leader>>', '<C-w>10>')
+keymap('n', '<Leader>n', ':tabmove +<CR>')
+keymap('n', '<Leader>p', ':tabmove -<CR>')
 -- keymap('n', '<Leader>q', ':bw!<CR>', { silent=true })
 keymap('n', '<Leader>e', ':Fern . -drawer -stay<CR>')
 -- カーソル下のファイルオープン

@@ -49,10 +49,13 @@ set -x PATH $HOME/.local/bin $PATH
 # -----------------
 # alias
 # -----------------
-alias ll "eza -l -g --icons"
+# alias ll "eza -l -g --icons"
+# alias lla "ll -a"
+alias ll "ls -l"
 alias lla "ll -a"
 alias gl "git log --oneline -n 5"
 alias bpflog "sudo cat /sys/kernel/debug/tracing/trace_pipe"
 alias m "make"
 alias mc "make clean"
 alias c "clear"
+alias grep "grep --color=always"
