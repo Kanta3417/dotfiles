@@ -121,7 +121,9 @@ keymap('n', '<Leader>p', ':tabmove -<CR>')
 -- keymap('n', '<Leader>q', ':bw!<CR>', { silent=true })
 keymap('n', '<Leader>e', ':Fern . -drawer -stay<CR>')
 -- カーソル下のファイルオープン
-keymap('n', '<Leader>f', '<C-w>vgf')
+keymap('n', '<Leader>o', '<C-w>vgf')
+-- 開いているファイルのパスをクリップボードにコピー
+keymap('n', '<Leader>f', ":let @+ = expand('%:p')<CR>")
 
 ---------------------------------
 -- filetype
